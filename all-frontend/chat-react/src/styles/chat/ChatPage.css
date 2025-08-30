@@ -1,0 +1,383 @@
+.chat-app .chat-page {
+    height: 100vh;
+    height: 100dvh;
+    /* 使用动态视口高度单位，适应iPhone Safari */
+    display: flex;
+    flex-direction: column;
+    background: #f5f5f5;
+    /* 添加安全区域支持 */
+    padding-top: var(--safe-area-inset-top);
+    padding-left: var(--safe-area-inset-left);
+    padding-right: var(--safe-area-inset-right);
+    padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.chat-app .chat-page-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    height: 100dvh;
+    /* 使用动态视口高度单位，适应iPhone Safari */
+    flex-direction: column;
+    gap: 16px;
+    background: #f5f5f5;
+    color: #657786;
+}
+
+.chat-app .chat-page-header {
+    background: white;
+    border-bottom: 1px solid #e1e8ed;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    /* 在头部设置安全区域支持 */
+    padding-top: max(12px, calc(12px + var(--safe-area-inset-top)));
+    /* 添加左右安全区域支持 */
+    padding-left: max(16px, calc(16px + var(--safe-area-inset-left)));
+    padding-right: max(16px, calc(16px + var(--safe-area-inset-right)));
+}
+
+.chat-app .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-app .back-btn {
+    background: none;
+    border: none;
+    color: #1da1f2;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.chat-app .back-btn:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+}
+
+.chat-app .chat-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-app .chat-avatar {
+    flex-shrink: 0;
+}
+
+.chat-app .chat-avatar .avatar-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.chat-app .chat-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-app .chat-details h1 {
+    margin: 0;
+    font-size: 1.125rem;
+    color: #14171a;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-app .connection-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.chat-app .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.chat-app .status-text {
+    font-size: 0.75rem;
+    color: #657786;
+    font-weight: 500;
+}
+
+.chat-app .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.chat-app .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #1da1f2;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.chat-app .btn-icon {
+    background: transparent;
+    color: #1da1f2;
+    border: 1px solid #e1e8ed;
+    padding: 8px 12px;
+    min-width: auto;
+}
+
+.chat-app .btn-icon:hover {
+    background: rgba(29, 161, 242, 0.1);
+    border-color: #1da1f2;
+}
+
+.chat-app .btn-text {
+    font-size: 13px;
+    color: #14171a;
+}
+
+.chat-app .btn-secondary {
+    background: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+.chat-app .btn-secondary:hover {
+    background: #e9ecef;
+}
+
+.chat-app .chat-page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.chat-app .connection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.chat-app .connection-modal {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+}
+
+.chat-app .connection-modal p {
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #14171a;
+}
+
+.chat-app .connection-modal small {
+    color: #657786;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.chat-app .connection-actions {
+    margin-top: 1rem;
+}
+
+.chat-app .connection-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.chat-app .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #1da1f2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 移动端优化 (< 768px) */
+@media (max-width: 768px) {
+    .chat-app .chat-page-header {
+        padding: 10px 14px;
+        gap: 8px;
+        /* 移动端确保头部不被状态栏遮挡 */
+        padding-top: max(10px, calc(10px + var(--safe-area-inset-top)));
+    }
+
+    .chat-app .header-left {
+        gap: 8px;
+    }
+
+    .chat-app .chat-avatar .avatar-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    /* 移动端隐藏连接状态 */
+    .chat-app .chat-page .connection-status,
+    .chat-app .chat-details .connection-status {
+        display: none !important;
+    }
+
+    .chat-app .chat-details h1 {
+        font-size: 1rem;
+    }
+
+    .chat-app .btn-text {
+        font-size: 12px;
+    }
+
+    .chat-app .btn-icon {
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    .chat-app .btn-icon:hover {
+        /* 移动端移除hover效果 */
+    }
+}
+
+/* 小屏手机优化 (< 480px) */
+@media (max-width: 480px) {
+    .chat-app .chat-page-header {
+        padding: 8px 12px;
+        /* 小屏手机确保头部不被状态栏遮挡 */
+        padding-top: max(8px, calc(8px + var(--safe-area-inset-top)));
+    }
+
+    .chat-app .header-left {
+        gap: 6px;
+    }
+
+    .chat-app .back-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .chat-app .chat-info {
+        gap: 8px;
+    }
+
+    .chat-app .chat-avatar .avatar-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .chat-app .chat-details h1 {
+        font-size: 0.9rem;
+    }
+
+    /* 小屏手机也隐藏连接状态 */
+    .chat-app .chat-page .connection-status,
+    .chat-app .chat-details .connection-status {
+        display: none !important;
+    }
+
+    .chat-app .btn-icon {
+        padding: 5px 8px;
+        border-radius: 4px;
+    }
+
+    .chat-app .btn-icon:hover {
+        /* 小屏移除hover效果 */
+    }
+
+    .chat-app .btn-text {
+        font-size: 11px;
+    }
+
+    .chat-app .connection-modal {
+        padding: 1.25rem;
+        margin: 1rem;
+    }
+
+    .chat-app .connection-modal h3 {
+        font-size: 1rem;
+    }
+}
+
+/* 平板端优化 (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .chat-app .chat-page-header {
+        padding: 11px 15px;
+    }
+
+    .chat-app .chat-avatar .avatar-circle {
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
+    }
+
+    .chat-app .connection-status {
+        gap: 5px;
+    }
+
+    .chat-app .status-indicator {
+        width: 7px;
+        height: 7px;
+    }
+
+    .chat-app .chat-details h1 {
+        font-size: 1.0625rem;
+    }
+}

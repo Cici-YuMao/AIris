@@ -1,0 +1,28 @@
+server:
+  port: 9533
+
+# Dubbo配置
+dubbo:
+  protocol:
+    port: 29533
+
+# 自定义配置
+airis:
+  chat:
+    # 服务器标识（用于区分不同的服务器节点）
+    server-id: chat-node-3
+
+# 日志配置
+logging:
+  file:
+    name: logs/realtime-chat-service-node3.log
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        ip: 10.144.1.1
+        port: 9533
+        group: DEFAULT_GROUP
+        enabled: true
+        register-enabled: true 

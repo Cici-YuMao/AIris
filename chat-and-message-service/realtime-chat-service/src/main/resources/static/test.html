@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket聊天测试 - 增强版</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .container { border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; }
+        .message { margin: 5px 0; padding: 5px; background: #f0f0f0; }
+        .sent { background: #e0f0ff; text-align: right; }
+        .received { background: #f0ffe0; }
+        .system { background: #ffe0e0; font-style: italic; }
+        .warning { background: #ffcccc; color: #cc0000; font-weight: bold; }
+        input, button, select { margin: 5px; padding: 5px; }
+        #messages { height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; }
+        .test-section { background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .status-indicator { 
+            display: inline-block; 
+            width: 10px; 
+            height: 10px; 
+            border-radius: 50%; 
+            margin-right: 5px;
+        }
+        .status-online { background: #4CAF50; }
+        .status-offline { background: #f44336; }
+        .status-unknown { background: #9E9E9E; }
+        .countdown { font-weight: bold; color: #ff6600; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket聊天测试 - 增强版</h1>
+    
+    <div class="container">
+        <h3>连接设置</h3>
+        <label>服务器节点:</label>
+        <select id="serverNode">
+            <option value="9531">Node 1 (9531)</option>
+            <option value="9532">Node 2 (9532)</option>
+            <option value="9533">Node 3 (9533)</option>
+        </select>
+        <br><br>
+        <input type="text" id="userId" placeholder="用户ID" value="user1">
+                    <button onclick="connect()">连接</button>
+            <button onclick="disconnect()">断开</button>
+            <button onclick="forceDisconnect()">强制断开（测试）</button>
+            <button onclick="duplicateConnect()">重复连接（测试单连接）</button>
+            <span id="status">未连接</span>
+        <br>
+        <small id="serverInfo">当前连接: 无</small>
+        <br>
+        <small id="heartbeatStatus">心跳状态: 未开始</small>
+        <br>
+        <small id="timeoutCountdown">超时倒计时: --</small>
+    </div>
+    
+    <div class="container">
+        <h3>在线状态检测</h3>
+        <div class="test-section">
+            <label>检测用户ID:</label>
+            <input type="text" id="checkUserId" placeholder="要检测的用户ID" value="user2">
+            <button onclick="checkOnlineStatus()">检查在线状态</button>
+            <span id="onlineStatusResult">
+                <span class="status-indicator status-unknown"></span>未检测
+            </span>
+            <br>
+            <small>定期检测间隔: 
+                <select id="checkInterval">
+                    <option value="0">手动检测</option>
+                    <option value="10000">每10秒</option>
+                    <option value="30000" selected>每30秒</option>
+                    <option value="60000">每60秒</option>
+                </select>
+                <button onclick="toggleAutoCheck()">开始/停止</button>
+                <span id="autoCheckStatus">已停止</span>
+            </small>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h3>心跳测试 (30秒超时)</h3>
+        <div class="test-section">
+            <label>心跳间隔:</label>
+            <select id="heartbeatInterval">
+                <option value="5000">5秒 (安全)</option>
+                <option value="15000">15秒 (正常)</option>
+                <option value="25000" selected>25秒 (边界)</option>
+                <option value="35000">35秒 (超时)</option>
+                <option value="0">停止心跳</option>
+            </select>
+            <button onclick="updateHeartbeatInterval()">应用设置</button>
+            <br>
+            <small style="color: #666;">
+                • 服务器超时时间: 30秒<br>
+                • 选择35秒或停止心跳可以测试超时断线逻辑
+            </small>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h3>测试功能说明</h3>
+        <ul style="font-size: 14px; color: #666;">
+            <li><strong>30秒超时机制：</strong>服务器会在30秒无心跳后清除用户在线状态</li>
+            <li><strong>在线状态自动恢复：</strong>超时后重新发送消息或心跳会自动恢复在线状态</li>
+            <li><strong>单连接限制：</strong>每个用户只能有一个WebSocket连接，新连接会替换旧连接</li>
+            <li><strong>已读回执：</strong>收到消息后自动发送已读回执，原发送者会收到通知</li>
+            <li><strong>在线状态检测：</strong>可以检测指定用户的在线状态，支持定期自动检测</li>
+            <li><strong>消息发送失败清理：</strong>当消息发送失败时，服务器会自动清除用户在线状态</li>
+            <li><strong>强制断开测试：</strong>可以强制断开连接来测试异常断线处理</li>
+            <li><strong>心跳间隔调节：</strong>可以调整心跳间隔来测试不同的超时场景</li>
+            <li><strong>跨节点测试：</strong>可以在不同浏览器标签页连接不同节点进行跨节点消息测试</li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <h3>消息</h3>
+        <div id="messages"></div>
+        <div>
+            <input type="text" id="receiverId" placeholder="接收者ID" value="user2">
+            <input type="text" id="chatId" placeholder="聊天ID" value="chat123">
+            <input type="text" id="messageContent" placeholder="消息内容（留空自动生成）" style="width: 300px;">
+            <button onclick="sendMessage()">发送</button>
+            <button onclick="sendRandomMessage()">发送随机消息</button>
+            <button onclick="sendHeartbeat()">手动心跳</button>
+        </div>
+    </div>
+    
+    <script>
+        let ws = null;
+        let userId = '';
+        let heartbeatTimer = null;
+        let currentHeartbeatInterval = 25000; // 默认25秒
+        let timeoutCountdownTimer = null;
+        let lastHeartbeatTime = 0;
+        let autoCheckTimer = null;
+        
+        // 随机消息内容数组
+        const randomMessages = [
+            'Hello', 'Hi', 'How are you?', 'Good morning', 'Good evening',
+            'Nice to meet you', 'What\'s up?', 'See you later', 'Take care',
+            'Have a good day', 'Thanks', 'You\'re welcome', 'No problem',
+            'Awesome', 'Great', 'Perfect', 'Amazing', 'Wonderful'
+        ];
+        
+        function connect() {
+            userId = document.getElementById('userId').value;
+            const serverPort = document.getElementById('serverNode').value;
+            
+            if (!userId) {
+                alert('请输入用户ID');
+                return;
+            }
+            
+            const wsUrl = `ws://localhost:${serverPort}/ws/chat?userId=${userId}`;
+            ws = new WebSocket(wsUrl);
+            
+            document.getElementById('serverInfo').textContent = `当前连接: Node (${serverPort})`;
+            
+            ws.onopen = function() {
+                setStatus('已连接');
+                addMessage('系统', '连接成功');
+                
+                // 开始心跳
+                startHeartbeat();
+                
+                // 开始超时倒计时
+                startTimeoutCountdown();
+            };
+            
+            ws.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                handleMessage(message);
+            };
+            
+            ws.onclose = function() {
+                setStatus('已断开');
+                addMessage('系统', '连接已断开', 'warning');
+                
+                // 停止心跳和倒计时
+                stopHeartbeat();
+                stopTimeoutCountdown();
+            };
+            
+            ws.onerror = function(error) {
+                setStatus('错误');
+                addMessage('系统', '连接错误: ' + error, 'warning');
+            };
+        }
+        
+        function disconnect() {
+            if (ws) {
+                stopHeartbeat();
+                stopTimeoutCountdown();
+                ws.close();
+                ws = null;
+                document.getElementById('serverInfo').textContent = '当前连接: 无';
+            }
+        }
+        
+        function forceDisconnect() {
+            if (ws) {
+                addMessage('系统', '强制断开连接 - 测试异常处理', 'warning');
+                ws.close();
+                ws = null;
+            }
+        }
+        
+        function duplicateConnect() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                addMessage('系统', '测试重复连接 - 旧连接应该被替换', 'warning');
+            }
+            // 不关闭现有连接，直接建立新连接来测试单连接限制
+            connect();
+        }
+        
+        function sendMessage() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                alert('请先连接WebSocket');
+                return;
+            }
+            
+            let content = document.getElementById('messageContent').value;
+            const receiverId = document.getElementById('receiverId').value;
+            const chatId = document.getElementById('chatId').value;
+            
+            // 如果没有输入内容，自动生成随机消息
+            if (!content) {
+                content = generateRandomMessage();
+                document.getElementById('messageContent').value = content;
+            }
+            
+            if (!receiverId || !chatId) {
+                alert('请填写接收者ID和聊天ID');
+                return;
+            }
+            
+            const message = {
+                type: 'CHAT_MESSAGE',
+                receiverId: receiverId,
+                chatId: chatId,
+                content: content,
+                timestamp: Date.now()
+            };
+            
+            ws.send(JSON.stringify(message));
+            addMessage('我', content, 'sent');
+            document.getElementById('messageContent').value = '';
+        }
+        
+        function sendHeartbeat() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                alert('请先连接WebSocket');
+                return;
+            }
+            
+            const message = {
+                type: 'HEARTBEAT',
+                content: 'ping',
+                timestamp: Date.now()
+            };
+            
+            ws.send(JSON.stringify(message));
+            addMessage('系统', '手动心跳');
+            
+            // 重置倒计时
+            lastHeartbeatTime = Date.now();
+            startTimeoutCountdown();
+        }
+        
+        function handleMessage(message) {
+            switch (message.type) {
+                case 'CONNECTED':
+                    addMessage('系统', message.content);
+                    break;
+                case 'CHAT_MESSAGE':
+                    if (message.senderId === 'system') {
+                        addMessage('系统', `消息已送达: ${message.messageId}`);
+                    } else {
+                        addMessage(message.senderId, message.content, 'received');
+                        // 收到消息后自动发送已读回执
+                        sendReadReceipt(message);
+                    }
+                    break;
+                case 'HEARTBEAT_ACK':
+                    addMessage('系统', '心跳响应: ' + message.content);
+                    // 重置倒计时
+                    lastHeartbeatTime = Date.now();
+                    startTimeoutCountdown();
+                    break;
+                case 'ERROR':
+                    addMessage('错误', message.content, 'warning');
+                    break;
+                case 'READ_RECEIPT':
+                    addMessage('系统', '消息已读通知');
+                    break;
+                default:
+                    addMessage('未知', JSON.stringify(message));
+            }
+        }
+        
+        function addMessage(sender, content, type = '') {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + type;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            messageDiv.innerHTML = `<strong>[${timestamp}] ${sender}:</strong> ${content}`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        function setStatus(status) {
+            document.getElementById('status').textContent = status;
+        }
+        
+        // 开始心跳
+        function startHeartbeat() {
+            stopHeartbeat();
+            
+            if (currentHeartbeatInterval <= 0) {
+                document.getElementById('heartbeatStatus').textContent = '心跳状态: 已停止';
+                return;
+            }
+            
+            document.getElementById('heartbeatStatus').textContent = 
+                `心跳状态: 运行中 (每${currentHeartbeatInterval/1000}秒)`;
+            
+            heartbeatTimer = setInterval(function() {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    const heartbeatMessage = {
+                        type: 'HEARTBEAT',
+                        content: 'ping',
+                        timestamp: Date.now()
+                    };
+                    ws.send(JSON.stringify(heartbeatMessage));
+                    addMessage('系统', '自动心跳', 'system');
+                    lastHeartbeatTime = Date.now();
+                } else {
+                    stopHeartbeat();
+                }
+            }, currentHeartbeatInterval);
+            
+            // 记录首次心跳时间
+            lastHeartbeatTime = Date.now();
+        }
+        
+        // 停止心跳
+        function stopHeartbeat() {
+            if (heartbeatTimer) {
+                clearInterval(heartbeatTimer);
+                heartbeatTimer = null;
+                document.getElementById('heartbeatStatus').textContent = '心跳状态: 已停止';
+            }
+        }
+        
+        // 更新心跳间隔
+        function updateHeartbeatInterval() {
+            const newInterval = parseInt(document.getElementById('heartbeatInterval').value);
+            currentHeartbeatInterval = newInterval;
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                startHeartbeat();
+                startTimeoutCountdown();
+            }
+        }
+        
+        // 开始超时倒计时
+        function startTimeoutCountdown() {
+            stopTimeoutCountdown();
+            
+            timeoutCountdownTimer = setInterval(function() {
+                const elapsed = Date.now() - lastHeartbeatTime;
+                const remaining = Math.max(0, 30000 - elapsed); // 30秒超时
+                
+                const remainingSeconds = Math.ceil(remaining / 1000);
+                const countdownElement = document.getElementById('timeoutCountdown');
+                
+                if (remaining > 0) {
+                    countdownElement.innerHTML = `超时倒计时: <span class="countdown">${remainingSeconds}秒</span>`;
+                } else {
+                    countdownElement.innerHTML = `超时倒计时: <span class="countdown">已超时!</span>`;
+                    stopTimeoutCountdown();
+                }
+            }, 1000);
+        }
+        
+        // 停止超时倒计时
+        function stopTimeoutCountdown() {
+            if (timeoutCountdownTimer) {
+                clearInterval(timeoutCountdownTimer);
+                timeoutCountdownTimer = null;
+                document.getElementById('timeoutCountdown').textContent = '超时倒计时: --';
+            }
+        }
+        
+        // 检查在线状态
+        function checkOnlineStatus() {
+            const checkUserId = document.getElementById('checkUserId').value;
+            if (!checkUserId) {
+                alert('请输入要检测的用户ID');
+                return;
+            }
+            
+            const serverPort = document.getElementById('serverNode').value;
+            const url = `http://localhost:${serverPort}/api/chat/online/status/${checkUserId}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultElement = document.getElementById('onlineStatusResult');
+                    const indicator = data.online ? 
+                        '<span class="status-indicator status-online"></span>' : 
+                        '<span class="status-indicator status-offline"></span>';
+                    
+                    const serverInfo = data.server ? ` (${data.server})` : '';
+                    resultElement.innerHTML = `${indicator}${data.online ? '在线' : '离线'}${serverInfo}`;
+                    
+                    addMessage('系统', `用户 ${checkUserId} 状态: ${data.online ? '在线' : '离线'}${serverInfo}`);
+                })
+                .catch(error => {
+                    const resultElement = document.getElementById('onlineStatusResult');
+                    resultElement.innerHTML = '<span class="status-indicator status-unknown"></span>检测失败';
+                    addMessage('系统', `检测失败: ${error}`, 'warning');
+                });
+        }
+        
+        // 切换自动检测
+        function toggleAutoCheck() {
+            if (autoCheckTimer) {
+                clearInterval(autoCheckTimer);
+                autoCheckTimer = null;
+                document.getElementById('autoCheckStatus').textContent = '已停止';
+            } else {
+                const interval = parseInt(document.getElementById('checkInterval').value);
+                if (interval > 0) {
+                    autoCheckTimer = setInterval(checkOnlineStatus, interval);
+                    document.getElementById('autoCheckStatus').textContent = `运行中 (${interval/1000}秒)`;
+                }
+            }
+        }
+        
+        // 发送已读回执
+        function sendReadReceipt(originalMessage) {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                return;
+            }
+            
+            const readReceiptMessage = {
+                type: 'READ_RECEIPT',
+                chatId: originalMessage.chatId,
+                receiverId: originalMessage.senderId,
+                extraData: {
+                    messageId: originalMessage.messageId
+                },
+                timestamp: Date.now()
+            };
+            
+            ws.send(JSON.stringify(readReceiptMessage));
+            addMessage('系统', `已读回执已发送 (消息ID: ${originalMessage.messageId})`, 'system');
+        }
+        
+        // 生成随机消息
+        function generateRandomMessage() {
+            const randomIndex = Math.floor(Math.random() * randomMessages.length);
+            const randomLetters = Math.random().toString(36).substring(2, 5);
+            return randomMessages[randomIndex] + ' ' + randomLetters;
+        }
+        
+        // 直接发送随机消息
+        function sendRandomMessage() {
+            document.getElementById('messageContent').value = generateRandomMessage();
+            sendMessage();
+        }
+    </script>
+</body>
+</html> 

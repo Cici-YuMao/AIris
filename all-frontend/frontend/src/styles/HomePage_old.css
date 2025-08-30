@@ -1,0 +1,376 @@
+.home-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 20px 0;
+}
+
+.home-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #b6d0f7 0%, #e0e7ef 100%);
+  border-radius: 20px;
+  color: white;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+.home-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+
+}
+
+.nav-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.button-icon {
+  font-size: 2.5rem;
+}
+
+.button-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.button-desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.match-button {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.notification-button {
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+}
+
+.media-button {
+  background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+}
+
+.profile-button {
+  background: linear-gradient(135deg, #ffd93d 0%, #ff6b35 100%);
+}
+
+.recommend-section {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.section-header h2 {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.see-more-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.see-more-btn:hover {
+  background: #5a67d8;
+}
+
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.recommend-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.recommend-card:hover {
+  transform: translateY(-2px);
+}
+
+.recommend-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  margin-bottom: 15px;
+  border: 3px solid white;
+}
+
+.recommend-info h3 {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.recommend-meta {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.recommend-meta span {
+  background: #e9ecef;
+  color: #6c757d;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.recommend-stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 40px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.empty-recommend {
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-recommend p {
+  color: #6c757d;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.empty-recommend button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.empty-recommend button:hover {
+  background: #5a67d8;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .home-content {
+    padding: 0 15px;
+  }
+  
+  .welcome-section {
+    padding: 30px 20px;
+  }
+  
+  .home-title {
+    font-size: 2rem;
+  }
+  
+  .home-subtitle {
+    font-size: 1rem;
+  }
+  
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .stat-card {
+    padding: 20px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .button-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .nav-button {
+    height: 100px;
+    padding: 15px;
+  }
+  
+  .button-icon {
+    font-size: 2rem;
+  }
+  
+  .button-text {
+    font-size: 1rem;
+  }
+  
+  .button-desc {
+    font-size: 0.8rem;
+  }
+  
+  .recommend-section {
+    padding: 20px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .recommend-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 1.5rem;
+  }
+  
+  .home-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .button-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommend-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommend-card {
+    padding: 15px;
+  }
+}
+}
+
+.media-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.media-button:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.notification-button {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.notification-button:hover {
+  background: linear-gradient(135deg, #ee82e9 0%, #f34960 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(240, 147, 251, 0.4);
+}
+
+.button-icon {
+  font-size: 1.8rem;
+}
+
+.button-text {
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .home-content {
+    padding: 30px 20px;
+  }
+  
+  .home-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .nav-button {
+    width: 100%;
+    height: 70px;
+  }
+  
+  .button-text {
+    font-size: 1.1rem;
+  }
+}

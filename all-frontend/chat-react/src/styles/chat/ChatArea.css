@@ -1,0 +1,797 @@
+.chat-app .chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    height: 100%;
+}
+
+.chat-app .no-chat-selected {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f9fa;
+}
+
+.chat-app .no-chat-content {
+    text-align: center;
+    color: #657786;
+    max-width: 400px;
+    padding: 40px 20px;
+}
+
+.chat-app .no-chat-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.chat-app .no-chat-content h2 {
+    font-size: 1.5rem;
+    color: #14171a;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.chat-app .no-chat-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.chat-app .hint {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.chat-app .chat-area-header {
+    background: white;
+    border-bottom: 1px solid #e1e8ed;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.chat-app .chat-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 移动端返回按钮 */
+.chat-app .back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #1da1f2;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.chat-app .back-btn:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+}
+
+.chat-app .chat-avatar {
+    flex-shrink: 0;
+}
+
+.chat-app .chat-details {
+    min-width: 0;
+}
+
+.chat-app .chat-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #14171a;
+    margin: 0 0 2px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-app .chat-id {
+    font-size: 12px;
+    color: #657786;
+    font-family: 'Monaco', 'Menlo', monospace;
+    margin: 0;
+}
+
+.chat-app .chat-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.chat-app .messages-container {
+    flex: 1;
+    overflow-y: auto;
+    background: #f7f9fa;
+    position: relative;
+}
+
+.chat-app .load-more-container {
+    padding: 15px 20px;
+    text-align: center;
+    background: #f7f9fa;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.chat-app .loading-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #657786;
+    font-size: 14px;
+}
+
+.chat-app .loading-more .loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #1da1f2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.chat-app .loading-more .loading-spinner.small {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.chat-app .load-more-btn {
+    background: white;
+    border: 1px solid #e1e8ed;
+    color: #1da1f2;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chat-app .load-more-btn:hover {
+    background: #f7f9fa;
+    border-color: #1da1f2;
+}
+
+.chat-app .messages-list {
+    padding: 20px;
+    min-height: 100%;
+}
+
+.chat-app .loading-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: #657786;
+    text-align: center;
+}
+
+.chat-app .loading-messages .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #1da1f2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+}
+
+.chat-app .loading-messages span {
+    font-size: 14px;
+    color: #657786;
+}
+
+.chat-app .no-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: #657786;
+}
+
+.chat-app .no-messages-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+
+
+.chat-app .message-input-container {
+    background: white;
+    border-top: 1px solid #e1e8ed;
+    padding: 15px 20px;
+    /* 添加底部安全区域支持，防止被Home Indicator遮挡 */
+    padding-bottom: max(15px, calc(15px + var(--safe-area-inset-bottom)));
+}
+
+.chat-app .input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    background: #f7f9fa;
+    border: 1px solid #e1e8ed;
+    border-radius: 20px;
+    padding: 12px 16px;
+    transition: all 0.2s ease;
+}
+
+.chat-app .input-wrapper:focus-within {
+    border-color: #1da1f2;
+    box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.1);
+}
+
+.chat-app .message-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    resize: none;
+    outline: none;
+    font-size: 15px;
+    line-height: 1.4;
+    font-family: inherit;
+    color: #14171a;
+    min-height: 20px;
+    max-height: 120px;
+}
+
+.chat-app .message-input::placeholder {
+    color: #657786;
+}
+
+.chat-app .input-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.chat-app .character-count {
+    font-size: 11px;
+    color: #657786;
+    opacity: 0.7;
+}
+
+.chat-app .send-button {
+    background: #1da1f2;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.chat-app .send-button:hover:not(:disabled) {
+    background: #1991da;
+    transform: scale(1.05);
+}
+
+.chat-app .send-button:disabled {
+    background: #aab8c2;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.chat-app .input-footer {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.chat-app .input-hint {
+    font-size: 11px;
+    color: #657786;
+    opacity: 0.7;
+}
+
+/* 平板端优化 (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .chat-app .chat-area-header {
+        padding: 15px 20px;
+    }
+
+    .chat-app .chat-name {
+        font-size: 1.05rem;
+    }
+
+    .chat-app .chat-actions {
+        gap: 8px;
+    }
+
+    .chat-app .messages-list {
+        padding: 18px;
+    }
+
+    .chat-app .message-input-container {
+        padding: 15px 20px;
+    }
+
+    .chat-app .btn-small {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* 移动端优化 (< 768px) */
+@media (max-width: 768px) {
+    .chat-app .chat-area-header {
+        padding: 12px 15px;
+        min-height: 60px;
+        /* 与主头部高度一致 */
+    }
+
+    .chat-app .chat-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .chat-app .chat-name {
+        font-size: 1rem;
+    }
+
+    .chat-app .chat-id {
+        display: none;
+        /* 移动端隐藏聊天ID */
+    }
+
+    .chat-app .chat-actions {
+        gap: 6px;
+    }
+
+    .chat-app .btn-small {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    .chat-app .messages-list {
+        padding: 15px;
+    }
+
+    .chat-app .message-input-container {
+        padding: 12px 15px;
+        /* 移动端底部安全区域支持 */
+        padding-bottom: max(12px, calc(12px + var(--safe-area-inset-bottom)));
+    }
+
+    .chat-app .input-wrapper {
+        padding: 10px 14px;
+        min-height: 40px;
+    }
+
+    .chat-app .message-input {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .chat-app .send-button {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .chat-app .upload-button {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .chat-app .back-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+        margin-right: 6px;
+    }
+
+    /* 移动端上传菜单优化 */
+    .chat-app .upload-menu {
+        bottom: 100%;
+        margin-bottom: 8px;
+        /* 移动端调整菜单位置，避免被遮挡 */
+        left: auto;
+        right: 0;
+        transform: none;
+    }
+
+    .chat-app .upload-option {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+/* 小屏手机优化 (< 480px) */
+@media (max-width: 480px) {
+    .chat-app .chat-area-header {
+        padding: 10px 12px;
+        min-height: 56px;
+        /* 添加安全区域顶部支持 */
+        padding-top: max(10px, calc(10px + var(--safe-area-inset-top)));
+    }
+
+    .chat-app .chat-name {
+        font-size: 0.95rem;
+    }
+
+    .chat-app .chat-actions {
+        gap: 4px;
+    }
+
+    .chat-app .btn-small {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    .chat-app .no-chat-content {
+        padding: 20px 15px;
+    }
+
+    .chat-app .no-chat-icon {
+        font-size: 3rem;
+    }
+
+    .chat-app .no-chat-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .chat-app .no-chat-content p {
+        font-size: 14px;
+    }
+
+    .chat-app .messages-list {
+        padding: 12px;
+    }
+
+    .chat-app .message-input-container {
+        padding: 10px 12px;
+        /* 添加安全区域底部支持 */
+        padding-bottom: max(10px, calc(10px + var(--safe-area-inset-bottom)));
+    }
+
+    .chat-app .input-wrapper {
+        padding: 8px 12px;
+        min-height: 36px;
+    }
+
+    .chat-app .message-input {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .chat-app .send-button {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    .chat-app .upload-button {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    .chat-app .back-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+        margin-right: 4px;
+    }
+
+    .chat-app .loading-messages .loading-spinner {
+        width: 30px;
+        height: 30px;
+        border-width: 3px;
+    }
+
+    .chat-app .loading-more .loading-spinner {
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+    }
+
+    /* 小屏手机上传菜单优化 - 修复定位问题 */
+    .chat-app .upload-menu {
+        position: fixed;
+        bottom: calc(60px + var(--safe-area-inset-bottom));
+        left: auto;
+        right: 16px;
+        transform: none;
+        width: 180px;
+        /* 确保菜单不会超出屏幕边界 */
+        max-width: calc(100vw - 32px);
+        margin-left: 0;
+        margin-right: 0;
+        /* 确保菜单在安全区域内 */
+        right: max(16px, calc(16px + var(--safe-area-inset-right)));
+    }
+
+    /* 移除之前的复杂定位逻辑，统一使用右侧定位 */
+
+    .chat-app .upload-option {
+        padding: 12px 15px;
+        font-size: 12px;
+    }
+}
+
+/* Upload functionality styles */
+.chat-app .upload-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.chat-app .upload-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.chat-app .upload-modal>div {
+    padding: 20px;
+    text-align: center;
+}
+
+.chat-app .upload-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9fafb;
+}
+
+.chat-app .upload-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.chat-app .close-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.chat-app .close-button:hover {
+    background-color: #e5e7eb;
+}
+
+.chat-app .input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.chat-app .upload-section {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.chat-app .upload-button {
+    background: none;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-app .upload-button:hover {
+    background-color: #f3f4f6;
+    border-color: #1da1f2;
+    color: #1da1f2;
+}
+
+.chat-app .upload-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    margin-bottom: 8px;
+    min-width: 160px;
+    z-index: 100;
+    /* 确保菜单不会超出屏幕边界 */
+    max-width: calc(100vw - 32px);
+}
+
+.chat-app .upload-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    transition: background-color 0.2s ease;
+    text-align: left;
+    min-height: 36px;
+}
+
+.chat-app .upload-option span {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.chat-app .upload-option:hover:not(.disabled) {
+    background-color: #f3f4f6;
+}
+
+.chat-app .upload-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chat-app .upload-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    line-height: 1;
+    flex-shrink: 0;
+    /* 新增，防止被压缩 */
+}
+
+
+/* Adjust existing input styles for new layout */
+.chat-app .input-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.chat-app .message-input {
+    flex: 1;
+    min-height: 40px;
+    max-height: 120px;
+}
+
+.chat-app .send-button {
+    flex-shrink: 0;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.chat-app .input-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 4px;
+}
+
+.chat-app .input-hint {
+    font-size: 11px;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+.chat-app .character-count {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+/* Mobile responsiveness for upload features */
+@media (max-width: 768px) {
+    .chat-app .upload-modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .chat-app .upload-modal>div {
+        padding: 16px;
+        text-align: center;
+    }
+
+    .chat-app .upload-header {
+        padding: 12px 16px;
+    }
+
+    .chat-app .upload-header h3 {
+        font-size: 14px;
+    }
+
+    .chat-app .upload-menu {
+        min-width: 140px;
+    }
+
+    .chat-app .upload-option {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+}
+
+/* Small mobile devices - upload modal centering */
+@media (max-width: 480px) {
+    .chat-app .upload-modal {
+        width: 98%;
+        max-height: 85vh;
+    }
+
+    .chat-app .upload-modal>div {
+        padding: 12px;
+        text-align: center;
+    }
+
+    .chat-app .upload-header {
+        padding: 10px 12px;
+    }
+
+    .chat-app .upload-header h3 {
+        font-size: 13px;
+    }
+}

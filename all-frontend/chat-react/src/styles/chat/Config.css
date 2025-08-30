@@ -1,0 +1,273 @@
+.chat-app .config-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* 使用动态视口高度单位，适应iPhone Safari */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+}
+
+.chat-app .config-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+}
+
+.chat-app .config-header {
+    background: #f8f9fa;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.chat-app .config-header h1 {
+    margin: 0 0 10px 0;
+    color: #495057;
+}
+
+.chat-app .config-header p {
+    margin: 0;
+    color: #6c757d;
+}
+
+.chat-app .config-content {
+    padding: 0;
+}
+
+.chat-app .config-section {
+    padding: 25px 30px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.chat-app .config-section:last-of-type {
+    border-bottom: none;
+}
+
+.chat-app .config-section h2 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #495057;
+    font-weight: 600;
+}
+
+.chat-app .config-row {
+    margin-bottom: 20px;
+}
+
+.chat-app .config-row label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+    font-size: 14px;
+}
+
+.chat-app .input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-app .config-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+}
+
+.chat-app .config-input::placeholder {
+    color: #adb5bd;
+}
+
+.chat-app .config-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.chat-app .config-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: white;
+    transition: border-color 0.2s ease;
+}
+
+.chat-app .config-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.chat-app .token-info {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.chat-app .token-info small {
+    display: block;
+    margin-bottom: 5px;
+    color: #6c757d;
+}
+
+.chat-app .token-info small:has-text("❌") {
+    color: #dc3545;
+}
+
+.chat-app .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.chat-app .status-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.chat-app .status-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.chat-app .status-label {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.chat-app .status-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.chat-app .connection-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.chat-app .connection-actions .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+.chat-app .config-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 25px 30px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.chat-app .config-actions .btn {
+    min-width: 120px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .chat-app .config-container {
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 30px;
+    }
+
+    .chat-app .config-header {
+        padding: 25px 20px;
+    }
+
+    .chat-app .config-header h1 {
+        font-size: 24px;
+    }
+
+    .chat-app .config-content {
+        max-width: 100%;
+    }
+
+    .chat-app .config-section {
+        padding: 20px;
+    }
+
+    .chat-app .config-section h2 {
+        font-size: 16px;
+    }
+
+    .chat-app .status-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .chat-app .connection-actions {
+        flex-direction: column;
+    }
+
+    .chat-app .config-actions {
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 480px) {
+    .chat-app .config-container {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .chat-app .config-header {
+        padding: 20px 15px;
+    }
+
+    .chat-app .config-header h1 {
+        font-size: 22px;
+    }
+
+    .chat-app .config-content {
+        border-radius: 8px;
+    }
+
+    .chat-app .config-section {
+        padding: 15px;
+    }
+
+    .chat-app .config-section h2 {
+        font-size: 15px;
+    }
+
+    .chat-app .input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .chat-app .input-group .btn {
+        width: 100%;
+    }
+}

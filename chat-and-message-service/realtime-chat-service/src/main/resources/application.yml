@@ -1,0 +1,104 @@
+server:
+  port: 9430
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: realtime-chat-service
+  config:
+    import:
+      - optional:nacos:realtime-chat-service.yml
+  profiles:
+    active: node1
+  # Redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      # password: redis123
+      database: 0
+      timeout: 6000
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 8
+          min-idle: 2
+          max-wait: -1
+  # RabbitMQ配置
+  rabbitmq:
+    host: 10.144.122.245
+    port: 5672
+    username: guest
+    password: guest
+
+# RocketMQ配置
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: realtime-chat-producer-group
+    send-message-timeout: 3000
+    retry-times-when-send-failed: 2
+
+# Dubbo配置
+dubbo:
+  application:
+    name: ${spring.application.name}
+    parameters:
+      serialize.security.mode: ${DUBBO_SERIALIZE_MODE:LOOSE}
+  registry:
+    address: nacos://localhost:8848
+    parameters:
+      namespace: public
+  protocol:
+    name: dubbo
+    port: 29430
+    # 首选序列化方式
+    serialization: fastjson2
+  consumer:
+    timeout: 5000
+    check: false
+    retries: 2
+    # 消费者序列化配置
+    parameters:
+      serialize.security.mode: LOOSE
+  provider:
+    timeout: 5000
+    retries: 2
+    version: 1.0.0
+    # 提供者序列化配置
+    parameters:
+      serialize.security.mode: LOOSE
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.airis.chat: INFO
+    org.apache.rocketmq: debug
+    org.apache.dubbo: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/realtime-chat-service.log
+    max-size: 100MB
+    max-history: 30
+
+# 自定义配置
+airis:
+  # 安全配置
+  security:
+    jwt:
+      enabled: false
+      secret: Y2xvZGVkX2tleV9mb3Jfand0X3NpZ25pbmdfcmVhbF9zYWZldHk=
+  chat:
+    # 服务器标识（用于区分不同的服务器节点）
+    server-id: ${HOSTNAME:server-1}
+    # 媒体服务配置
+    media-service:
+      base-url: http://10.144.122.245:8081
+    # 离线推送配置
+    offline-push:
+      # 重复推送抑制时间（秒），默认3600秒（1小时）
+      suppression-period: 3600

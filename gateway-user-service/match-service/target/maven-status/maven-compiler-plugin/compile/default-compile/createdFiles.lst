@@ -1,0 +1,17 @@
+com/airis/match/util/JwtUtil.class
+com/airis/match/repository/UserPreferenceRepository.class
+com/airis/match/config/RestTemplateConfig.class
+com/airis/match/config/SecurityConfig.class
+com/airis/match/repository/UserRepository.class
+com/airis/match/dto/UserPreferenceResponse.class
+com/airis/match/security/JwtAuthenticationFilter.class
+com/airis/match/controller/MatchController.class
+com/airis/match/entity/User.class
+com/airis/match/dto/CommentResponse.class
+com/airis/match/MatchServiceApplication.class
+com/airis/match/config/RedisConfig.class
+com/airis/match/service/MatchService.class
+com/airis/match/dto/UserInfoResponse.class
+com/airis/match/service/impl/MatchServiceImpl.class
+com/airis/match/dto/MatchUserDetailResponse.class
+com/airis/match/entity/UserPreference.class

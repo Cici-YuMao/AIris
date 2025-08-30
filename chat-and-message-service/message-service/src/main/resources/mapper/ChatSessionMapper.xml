@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.airis.message.mapper.ChatSessionMapper">
+
+    <resultMap id="BaseResultMap" type="com.airis.message.entity.ChatSession">
+        <id column="id" property="id" />
+        <result column="chat_id" property="chatId" />
+        <result column="user1_id" property="user1Id" />
+        <result column="user2_id" property="user2Id" />
+        <result column="last_message_id" property="lastMessageId" />
+        <result column="last_message_content" property="lastMessageContent" />
+        <result column="last_message_timestamp" property="lastMessageTimestamp" />
+        <result column="user1_unread_count" property="user1UnreadCount" />
+        <result column="user2_unread_count" property="user2UnreadCount" />
+        <result column="user1_last_read_message_id" property="user1LastReadMessageId" />
+        <result column="user2_last_read_message_id" property="user2LastReadMessageId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, chat_id, user1_id, user2_id, last_message_id, last_message_content, 
+        last_message_timestamp, user1_unread_count, user2_unread_count, 
+        user1_last_read_message_id, user2_last_read_message_id, created_at, updated_at
+    </sql>
+
+    <insert id="insert" parameterType="com.airis.message.entity.ChatSession" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO chat_session (
+            chat_id, user1_id, user2_id, last_message_id, last_message_content,
+            last_message_timestamp, user1_unread_count, user2_unread_count,
+            user1_last_read_message_id, user2_last_read_message_id, created_at, updated_at
+        ) VALUES (
+            #{chatId}, #{user1Id}, #{user2Id}, #{lastMessageId}, #{lastMessageContent},
+            #{lastMessageTimestamp}, #{user1UnreadCount}, #{user2UnreadCount},
+            #{user1LastReadMessageId}, #{user2LastReadMessageId}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.airis.message.entity.ChatSession">
+        UPDATE chat_session
+        SET chat_id = #{chatId},
+            user1_id = #{user1Id},
+            user2_id = #{user2Id},
+            last_message_id = #{lastMessageId},
+            last_message_content = #{lastMessageContent},
+            last_message_timestamp = #{lastMessageTimestamp},
+            user1_unread_count = #{user1UnreadCount},
+            user2_unread_count = #{user2UnreadCount},
+            user1_last_read_message_id = #{user1LastReadMessageId},
+            user2_last_read_message_id = #{user2LastReadMessageId},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM chat_session
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectByChatId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM chat_session
+        WHERE chat_id = #{chatId}
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM chat_session
+        WHERE user1_id = #{userId} OR user2_id = #{userId}
+        ORDER BY last_message_timestamp DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="selectByUserIdWithTimestamp" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM chat_session
+        WHERE (user1_id = #{userId} OR user2_id = #{userId})
+        <if test="beforeTimestamp != null">
+            AND last_message_timestamp &lt; #{beforeTimestamp}
+        </if>
+        ORDER BY last_message_timestamp DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countByUserId" parameterType="java.lang.String" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM chat_session
+        WHERE user1_id = #{userId} OR user2_id = #{userId}
+    </select>
+
+    <update id="updateLastMessage">
+        UPDATE chat_session
+        SET last_message_id = #{lastMessageId},
+            last_message_content = #{lastMessageContent},
+            last_message_timestamp = #{lastMessageTimestamp},
+            updated_at = NOW()
+        WHERE chat_id = #{chatId}
+    </update>
+
+    <update id="updateUnreadCount">
+        UPDATE chat_session
+        SET 
+            user1_unread_count = CASE 
+                WHEN user1_id = #{userId} THEN #{unreadCount}
+                ELSE user1_unread_count
+            END,
+            user2_unread_count = CASE 
+                WHEN user2_id = #{userId} THEN #{unreadCount}
+                ELSE user2_unread_count
+            END,
+            updated_at = NOW()
+        WHERE chat_id = #{chatId}
+    </update>
+
+    <update id="updateLastReadMessageId">
+        UPDATE chat_session
+        SET 
+            user1_last_read_message_id = CASE 
+                WHEN user1_id = #{userId} THEN #{lastReadMessageId}
+                ELSE user1_last_read_message_id
+            END,
+            user1_unread_count = CASE 
+                WHEN user1_id = #{userId} THEN 0
+                ELSE user1_unread_count
+            END,
+            user2_last_read_message_id = CASE 
+                WHEN user2_id = #{userId} THEN #{lastReadMessageId}
+                ELSE user2_last_read_message_id
+            END,
+            user2_unread_count = CASE 
+                WHEN user2_id = #{userId} THEN 0
+                ELSE user2_unread_count
+            END,
+            updated_at = NOW()
+        WHERE chat_id = #{chatId}
+    </update>
+
+    <insert id="insertOrUpdate" parameterType="com.airis.message.entity.ChatSession">
+        INSERT INTO chat_session (
+            chat_id, user1_id, user2_id, last_message_id, last_message_content,
+            last_message_timestamp, user1_unread_count, user2_unread_count,
+            user1_last_read_message_id, user2_last_read_message_id, created_at, updated_at
+        ) VALUES (
+            #{chatId}, #{user1Id}, #{user2Id}, #{lastMessageId}, #{lastMessageContent},
+            #{lastMessageTimestamp}, #{user1UnreadCount}, #{user2UnreadCount},
+            #{user1LastReadMessageId}, #{user2LastReadMessageId}, #{createdAt}, #{updatedAt}
+        )
+        ON DUPLICATE KEY UPDATE
+            last_message_id = VALUES(last_message_id),
+            last_message_content = VALUES(last_message_content),
+            last_message_timestamp = VALUES(last_message_timestamp),
+            updated_at = VALUES(updated_at)
+    </insert>
+
+    <select id="selectByTwoUserIds" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM chat_session
+        WHERE (user1_id = #{userAId} AND user2_id = #{userBId})
+           OR (user1_id = #{userBId} AND user2_id = #{userAId})
+        LIMIT 1
+    </select>
+
+</mapper> 

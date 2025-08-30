@@ -1,0 +1,28 @@
+server:
+  port: 9531
+
+# Dubbo配置
+dubbo:
+  protocol:
+    port: 29531
+
+# 自定义配置
+airis:
+  chat:
+    # 服务器标识（用于区分不同的服务器节点）
+    server-id: chat-node-1
+
+# 日志配置
+logging:
+  file:
+    name: logs/realtime-chat-service-node1.log
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        ip: 10.144.1.1
+        port: 9531
+        group: DEFAULT_GROUP
+        enabled: true
+        register-enabled: true

@@ -1,0 +1,247 @@
+/* Airis Logo 样式 */
+.airis-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  user-select: none;
+}
+
+.logo-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-shape {
+  position: relative;
+  transform: rotate(-45deg);
+  animation: heartbeat 2s infinite ease-in-out;
+}
+
+.heart-left,
+.heart-right {
+  width: 26px;
+  height: 40px;
+  position: relative;
+  left: 13px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  border-radius: 26px 26px 0 0;
+  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.heart-left {
+  transform: rotate(45deg);
+  left: -13px;
+}
+
+.heart-right::before,
+.heart-left::before {
+  content: '';
+  width: 26px;
+  height: 40px;
+  position: absolute;
+  left: -13px;
+  top: -13px;
+  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  border-radius: 26px 26px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart-sparkle {
+  position: absolute;
+  font-size: 12px;
+  animation: sparkle 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.heart-sparkle-1 {
+  top: -10px;
+  right: -10px;
+  animation-delay: 0.5s;
+}
+
+.heart-sparkle-2 {
+  bottom: -5px;
+  left: -15px;
+  animation-delay: 1s;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logo-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #6c757d;
+  letter-spacing: -0.5px;
+}
+
+.logo-tagline {
+  font-size: 0.75rem;
+  color: #6c757d;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Logo 尺寸变体 */
+.logo-small .heart-left,
+.logo-small .heart-right {
+  width: 16px;
+  height: 25px;
+}
+
+.logo-small .heart-left {
+  left: -8px;
+}
+
+.logo-small .heart-right {
+  left: 8px;
+}
+
+.logo-small .heart-left::before,
+.logo-small .heart-right::before {
+  width: 16px;
+  height: 25px;
+  left: -8px;
+  top: -8px;
+}
+
+.logo-small .logo-brand {
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.logo-small .logo-tagline {
+  font-size: 0.6rem;
+}
+
+.logo-small .heart-sparkle {
+  font-size: 8px;
+}
+
+.logo-large .heart-left,
+.logo-large .heart-right {
+  width: 40px;
+  height: 60px;
+}
+
+.logo-large .heart-left {
+  left: -20px;
+}
+
+.logo-large .heart-right {
+  left: 20px;
+}
+
+.logo-large .heart-left::before,
+.logo-large .heart-right::before {
+  width: 40px;
+  height: 60px;
+  left: -20px;
+  top: -20px;
+}
+
+.logo-large .logo-brand {
+  font-size: 3rem;
+  color: #6c757d;
+}
+
+.logo-large .logo-tagline {
+  font-size: 1rem;
+}
+
+.logo-large .heart-sparkle {
+  font-size: 16px;
+}
+
+/* 动画效果 */
+@keyframes heartbeat {
+
+  0%,
+  100% {
+    transform: rotate(-45deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(-45deg) scale(1.1);
+  }
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+.logo-animated .heart-shape {
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+.logo-animated .heart-sparkle {
+  animation: sparkle 2s infinite ease-in-out;
+}
+
+/* 悬停效果 */
+.airis-logo:hover .heart-shape {
+  animation: heartbeat 0.6s ease-in-out;
+}
+
+.airis-logo:hover .heart-sparkle {
+  animation: sparkle 1s ease-in-out;
+}
+
+.airis-logo:hover .logo-brand {
+  color: #495057;
+}
+
+/* 只显示图标的版本 */
+.logo-icon-only {
+  gap: 0;
+}
+
+.logo-icon-only .logo-text {
+  display: none;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .airis-logo {
+    gap: 10px;
+  }
+
+  .logo-brand {
+    font-size: 1.5rem;
+    color: #6c757d;
+  }
+
+  .logo-tagline {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-brand {
+    font-size: 1.3rem;
+    color: #6c757d;
+  }
+
+  .logo-tagline {
+    font-size: 0.6rem;
+  }
+}

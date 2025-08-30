@@ -1,0 +1,27 @@
+# Dubbo序列化安全白名单
+# 允许MyBatis相关异常类的序列化/反序列化
+
+# MyBatis异常类
+org.mybatis.spring.MyBatisSystemException
+org.apache.ibatis.exceptions.PersistenceException
+org.apache.ibatis.exceptions.IbatisException
+
+# Spring异常类
+org.springframework.dao.DataAccessException
+org.springframework.dao.DataIntegrityViolationException
+org.springframework.dao.DuplicateKeyException
+org.springframework.dao.EmptyResultDataAccessException
+
+# MySQL异常类
+java.sql.SQLException
+java.sql.SQLIntegrityConstraintViolationException
+com.mysql.cj.jdbc.exceptions.MySQLIntegrityConstraintViolationException
+
+# 通用异常类
+java.lang.RuntimeException
+java.lang.IllegalArgumentException
+java.lang.IllegalStateException
+
+# 业务异常类（如果有自定义业务异常）
+com.airis.message.exception.*
+com.airis.chat.exception.* 

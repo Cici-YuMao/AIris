@@ -1,0 +1,32 @@
+#spring:
+#  application:
+#    name: message-service
+#  profiles:
+#    active: dev
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+#        # namespace: airis  # 暂时注释掉，使用默认命名空间
+#        group: DEFAULT_GROUP
+#        enabled: true
+#        register-enabled: true
+#        metadata:
+#          management:
+#            context-path: /actuator
+#      config:
+#        server-addr: localhost:8848
+#        # namespace: airis  # 暂时注释掉，使用默认命名空间
+#        group: DEFAULT_GROUP
+#        file-extension: yml
+#        enabled: true
+#        refresh-enabled: true
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: always

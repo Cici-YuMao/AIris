@@ -1,0 +1,138 @@
+server:
+  port: 9330
+
+spring:
+  application:
+    name: message-service
+  config:
+    import:
+      - optional:nacos:message-service.yml
+  cloud:
+    nacos:
+      discovery:
+        ip: 10.144.1.1
+        port: 9330
+        group: DEFAULT_GROUP
+        enabled: true
+        register-enabled: true
+      config:
+        server-addr: 10.144.1.1:8848
+        group: DEFAULT_GROUP
+        file-extension: yml
+        enabled: true
+        refresh-enabled: true
+
+  # Database configuration
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/airis_message?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    druid:
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+
+  # MongoDB configuration
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: airis_chat
+
+# MyBatis configuration
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.airis.message.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+
+# PageHelper configuration
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+# Dubbo configuration
+dubbo:
+  application:
+    name: message-service-dubbo
+  registry:
+    address: nacos://localhost:8848
+    parameters:
+      use-as-config-center: false
+      use-as-metadata-center: false
+  protocol:
+    name: dubbo
+    port: 20881
+  provider:
+    timeout: 5000
+  consumer:
+    timeout: 5000
+    check: false
+
+# RocketMQ configuration
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: message-service-producer
+    send-message-timeout: 3000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-times-when-send-failed: 2
+    retry-times-when-send-async-failed: 2
+    retry-next-server: true
+
+# Logging configuration
+logging:
+  level:
+    root: info
+    org.springframework.cloud: debug  # Spring Cloud 相关日志设为 debug
+    org.springframework.cloud.gateway: debug 
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n'
+
+# Knife4j Swagger documentation configuration
+knife4j:
+  enable: true
+  openapi:
+    title: AIRIS Message Service API
+    description: AIRIS Message Service API Documentation
+    version: 1.0.0
+    concat: airis-team@example.com
+  setting:
+    language: zh_cn
+    enable-version: true
+    enable-home-custom: true
+    home-custom-location: classpath:markdown/home.md
+
+# AIRIS Security Configuration
+airis:
+  security:
+    jwt:
+      enabled: false
+      secret: Y2xvZGVkX2tleV9mb3Jfand0X3NpZ25pbmdfcmVhbF9zYWZldHk

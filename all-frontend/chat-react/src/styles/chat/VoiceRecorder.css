@@ -1,0 +1,488 @@
+.chat-app .voice-recorder-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.chat-app .upload-modal .voice-recorder {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.chat-app .upload-modal .voice-recorder .recording-status {
+    margin-bottom: 20px;
+}
+
+.chat-app .upload-modal .voice-recorder h3 {
+    margin: 0 0 8px 0;
+    color: #14171a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chat-app .upload-modal .voice-recorder .recording-text {
+    font-size: 14px;
+    color: #657786;
+    margin-bottom: 4px;
+}
+
+.chat-app .upload-modal .voice-recorder .recording-time {
+    font-family: 'SF Mono', 'Monaco', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    color: #14171a;
+}
+
+/* 移除.recorder-content相关样式 */
+.chat-app .upload-modal .voice-recorder .recorder-content {
+    margin: 0;
+    padding: 0;
+    display: contents;
+}
+
+.chat-app .upload-modal .voice-recorder .waveform-container {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 其他组件的样式 */
+.chat-app .upload-modal .voice-recorder .idle-state {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.chat-app .upload-modal .voice-recorder .mic-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.chat-app .upload-modal .voice-recorder .main-record-button {
+    margin-top: 20px;
+}
+
+.chat-app .upload-modal .voice-recorder .playback-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.chat-app .upload-modal .voice-recorder .playback-time {
+    font-family: 'SF Mono', 'Monaco', monospace;
+    font-size: 14px;
+    color: #657786;
+    margin-left: 8px;
+}
+
+.chat-app .upload-modal .voice-recorder .recorded-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.chat-app .upload-modal .voice-recorder .audio-icon {
+    font-size: 32px;
+}
+
+.chat-app .upload-modal .voice-recorder .audio-details p {
+    margin: 0;
+    color: #14171a;
+}
+
+.chat-app .upload-modal .voice-recorder .duration {
+    font-size: 12px;
+    color: #657786;
+}
+
+.chat-app .upload-modal .voice-recorder .permission-error {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.chat-app .upload-modal .voice-recorder .retry-button {
+    background: #1da1f2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+}
+
+.chat-app .upload-modal .voice-recorder .retry-button:hover {
+    background: #1991da;
+    transform: translateY(-1px);
+}
+
+.chat-app .upload-modal .voice-recorder .waveform-bars {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 60px;
+}
+
+.chat-app .upload-modal .voice-recorder .waveform-bar {
+    width: 4px;
+    background: #e1e8ed;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    min-height: 8px;
+}
+
+.chat-app .upload-modal .voice-recorder .waveform-bar.active {
+    background: #1da1f2;
+}
+
+.chat-app .upload-modal .voice-recorder .recording-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: #657786;
+}
+
+.chat-app .upload-modal .voice-recorder .recording-dot {
+    width: 8px;
+    height: 8px;
+    background: #e74c3c;
+    border-radius: 50%;
+    animation: recordingPulse 1.5s infinite;
+}
+
+@keyframes recordingPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(1.2);
+    }
+}
+
+.chat-app .upload-modal .voice-recorder .recording-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.chat-app .upload-modal .voice-recorder .control-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    min-width: 80px;
+}
+
+.chat-app .upload-modal .voice-recorder .control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chat-app .upload-modal .voice-recorder .record-button {
+    background: #e74c3c;
+    color: white;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chat-app .upload-modal .voice-recorder .record-button:hover:not(:disabled) {
+    background: #c0392b;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+}
+
+.chat-app .upload-modal .voice-recorder .record-button.recording {
+    background: #27ae60;
+    animation: recordingButton 1s infinite;
+}
+
+@keyframes recordingButton {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.stop {
+    background: #95a5a6;
+    color: white;
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.stop:hover:not(:disabled) {
+    background: #7f8c8d;
+    transform: scale(1.05);
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.play {
+    background: #3498db;
+    color: white;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.play:hover:not(:disabled) {
+    background: #2980b9;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.playing {
+    background: #f39c12;
+}
+
+.chat-app .upload-modal .voice-recorder .action-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.primary {
+    background: #1da1f2;
+    color: white;
+    box-shadow: 0 2px 8px rgba(29, 161, 242, 0.3);
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.primary:hover:not(:disabled) {
+    background: #1991da;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4);
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.primary:disabled {
+    background: #aab8c2;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.secondary {
+    background: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+.chat-app .upload-modal .voice-recorder .control-button.secondary:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.chat-app .upload-modal .voice-recorder .hint {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e1e8ed;
+    font-size: 12px;
+    color: #657786;
+    text-align: center;
+}
+
+.chat-app .permission-error {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.chat-app .upload-modal .voice-recorder .audio-levels {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 40px;
+    margin: 16px 0;
+}
+
+.chat-app .upload-modal .voice-recorder .audio-level-bar {
+    width: 3px;
+    background: #e1e8ed;
+    border-radius: 2px;
+    transition: all 0.1s ease;
+    min-height: 4px;
+}
+
+.chat-app .upload-modal .voice-recorder .audio-level-bar.active {
+    background: #1da1f2;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .chat-app .upload-modal .voice-recorder {
+        padding: 20px;
+        max-width: 90%;
+        margin: 16px;
+    }
+
+    .chat-app .upload-modal .voice-recorder h3 {
+        font-size: 16px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .waveform-container {
+        height: 70px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .waveform-bars {
+        height: 50px;
+        gap: 2px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .waveform-bar {
+        width: 3px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .control-button {
+        padding: 8px 16px;
+        font-size: 13px;
+        min-width: 70px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .recording-controls {
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .chat-app .upload-modal .voice-recorder .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .control-button {
+        width: 100%;
+        padding: 12px 20px;
+        display: inline-block;
+        text-align: center;
+    }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 480px) {
+    .chat-app .upload-modal .voice-recorder {
+        padding: 16px;
+        margin: 12px;
+        border-radius: 12px;
+    }
+
+    .chat-app .upload-modal .voice-recorder h3 {
+        font-size: 15px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .recording-text {
+        font-size: 13px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .recording-time {
+        font-size: 14px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .waveform-container {
+        height: 60px;
+        margin: 16px 0;
+    }
+
+    .chat-app .upload-modal .voice-recorder .waveform-bars {
+        height: 40px;
+        gap: 2px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .waveform-bar {
+        width: 2px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .control-button {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-width: 60px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .recording-controls {
+        gap: 8px;
+        margin: 16px 0;
+    }
+
+    .chat-app .upload-modal .voice-recorder .control-button {
+        padding: 10px 16px;
+        font-size: 13px;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .chat-app .upload-modal .voice-recorder .hint {
+        font-size: 11px;
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    .chat-app .upload-modal .voice-recorder .recording-indicator {
+        font-size: 13px;
+        margin: 12px 0;
+    }
+
+    .chat-app .upload-modal .voice-recorder .recording-dot {
+        width: 6px;
+        height: 6px;
+    }
+}

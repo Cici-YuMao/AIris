@@ -1,0 +1,298 @@
+.chat-app .file-uploader {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.chat-app .file-input {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.chat-app .file-drop-zone,
+.chat-app .upload-area {
+    border: 2px dashed #e1e8ed;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    background: #fafbfc;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-app .file-drop-zone:hover,
+.chat-app .upload-area:hover {
+    border-color: #1da1f2;
+    background: #f8f9fa;
+}
+
+.chat-app .file-drop-zone.drag-active,
+.chat-app .upload-area.drag-over {
+    border-color: #1da1f2;
+    background: #e8f4fd;
+    transform: scale(1.02);
+}
+
+.chat-app .file-drop-zone.drag-reject,
+.chat-app .upload-area.drag-reject {
+    border-color: #e74c3c;
+    background: #fdf2f2;
+}
+
+.chat-app .upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.chat-app .upload-content p {
+    margin: 8px 0;
+    color: #14171a;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.chat-app .upload-content .upload-hint {
+    font-size: 14px;
+    color: #657786;
+    font-weight: normal;
+}
+
+.chat-app .upload-icon {
+    font-size: 3rem;
+    color: #aab8c2;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.chat-app .file-drop-zone.drag-active .upload-icon {
+    color: #1da1f2;
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    60%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    80% {
+        transform: translateY(-5px);
+    }
+}
+
+.chat-app .upload-text {
+    font-size: 16px;
+    color: #14171a;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.chat-app .upload-hint {
+    font-size: 14px;
+    color: #657786;
+    margin-bottom: 16px;
+}
+
+.chat-app .file-types {
+    font-size: 12px;
+    color: #aab8c2;
+}
+
+.chat-app .file-preview {
+    margin-top: 16px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e1e8ed;
+}
+
+.chat-app .preview-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.chat-app .preview-item:last-child {
+    border-bottom: none;
+}
+
+.chat-app .file-icon {
+    font-size: 24px;
+    color: #657786;
+    flex-shrink: 0;
+}
+
+.chat-app .file-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-app .file-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #14171a;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-app .file-size {
+    font-size: 12px;
+    color: #657786;
+}
+
+.chat-app .remove-file {
+    background: none;
+    border: none;
+    color: #657786;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.chat-app .remove-file:hover {
+    background: #f1f3f4;
+    color: #e74c3c;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+
+    .chat-app .file-drop-zone,
+    .chat-app .upload-area {
+        padding: 30px 15px;
+    }
+
+    .chat-app .upload-content p {
+        font-size: 15px;
+        margin: 6px 0;
+    }
+
+    .chat-app .upload-content .upload-hint {
+        font-size: 13px;
+        margin: 6px 0;
+    }
+
+    .chat-app .upload-icon {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+
+    .chat-app .upload-text {
+        font-size: 15px;
+    }
+
+    .chat-app .upload-hint {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .chat-app .file-types {
+        font-size: 11px;
+    }
+
+    .chat-app .preview-item {
+        gap: 10px;
+        padding: 6px 0;
+    }
+
+    .chat-app .file-icon {
+        font-size: 20px;
+    }
+
+    .chat-app .file-name {
+        font-size: 13px;
+    }
+
+    .chat-app .file-size {
+        font-size: 11px;
+    }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 480px) {
+    .chat-app .file-drop-zone,
+    .chat-app .upload-area {
+        padding: 25px 12px;
+        border-radius: 8px;
+    }
+
+    .chat-app .upload-content p {
+        font-size: 14px;
+        margin: 4px 0;
+    }
+
+    .chat-app .upload-content .upload-hint {
+        font-size: 12px;
+        margin: 4px 0;
+    }
+
+    .chat-app .upload-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .chat-app .upload-text {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .chat-app .upload-hint {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .chat-app .file-types {
+        font-size: 10px;
+    }
+
+    .chat-app .file-preview {
+        margin-top: 12px;
+        padding: 10px;
+    }
+
+    .chat-app .preview-item {
+        gap: 8px;
+        padding: 5px 0;
+    }
+
+    .chat-app .file-icon {
+        font-size: 18px;
+    }
+
+    .chat-app .file-name {
+        font-size: 12px;
+    }
+
+    .chat-app .file-size {
+        font-size: 10px;
+    }
+
+    .chat-app .remove-file {
+        padding: 3px;
+    }
+}

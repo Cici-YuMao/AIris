@@ -1,0 +1,1468 @@
+/* 认证页面样式 - 桌面网页版 */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 左侧品牌展示区域 */
+.auth-brand-section {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  color: white;
+  position: relative;
+  z-index: 10;
+}
+
+.auth-brand-content {
+  max-width: 500px;
+  text-align: center;
+}
+
+.auth-brand-logo {
+  margin-bottom: 2rem;
+}
+
+.auth-brand-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.auth-brand-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.auth-brand-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.auth-feature-item {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.auth-feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.auth-feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.auth-feature-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.auth-feature-desc {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* 右侧表单区域 */
+.auth-form-section {
+  flex: 0 0 40%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.auth-card {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  position: relative;
+  z-index: 10;
+  border: none;
+}
+
+.auth-form-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.auth-form-title {
+  font-size: 3.5rem;
+  font-weight: 500;
+  margin-bottom: 1.1rem;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-style: normal;
+  letter-spacing: normal;
+  color: #7c4dff;
+  background: none;
+  text-shadow: none;
+}
+
+.auth-form-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.register-card {
+  max-width: 600px;
+}
+
+.auth-card h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.step {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  background: #667eea;
+  color: white;
+}
+
+/* 表单样式 */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.auth-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-links a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+  color: #764ba2;
+}
+
+/* Guest Section */
+.guest-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  text-align: center;
+  border-top: 1px solid #e1e5e9;
+}
+
+.divider {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.divider span {
+  background: rgba(255, 255, 255, 0.95);
+  color: #666;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+}
+
+.guest-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.guest-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+.guest-desc {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.email-group {
+  display: flex;
+  gap: 10px;
+}
+
+.email-group input {
+  flex: 1;
+}
+
+.code-button {
+  padding: 12px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.code-button:hover:not(:disabled) {
+  background: #5a67d8;
+}
+
+.code-button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+}
+
+.step-content h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.preference-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.preference-section h4 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.range-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.range-group label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.range-group input[type="range"] {
+  flex: 1;
+  margin: 0;
+}
+
+.settings-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.settings-section h4 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.error-message {
+  background: #fee;
+  color: #c53030;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #fed7d7;
+  font-size: 14px;
+  text-align: center;
+}
+
+.auth-button {
+  padding: 14px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover:not(:disabled) {
+  background: #5a67d8;
+  transform: translateY(-1px);
+}
+
+.auth-button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-button.secondary {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.auth-button.secondary:hover:not(:disabled) {
+  background: #cbd5e0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  flex: 1;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-links a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+  color: #5a67d8;
+  text-decoration: underline;
+}
+
+/* Brand Header Styles */
+.brand-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.brand-title {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.brand-features {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.feature-tag {
+  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.feature-tag:hover {
+  transform: translateY(-2px);
+}
+
+/* Floating Hearts for Auth Pages */
+.auth-container .floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.auth-container .floating-heart {
+  position: absolute;
+  color: rgba(255, 107, 157, 0.3);
+  font-size: 1.5rem;
+  animation: float-hearts 10s linear infinite;
+  opacity: 0;
+}
+
+@keyframes float-hearts {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.auth-container .floating-heart:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 1.2rem; }
+.auth-container .floating-heart:nth-child(2) { left: 20%; animation-delay: 1s; font-size: 1.8rem; }
+.auth-container .floating-heart:nth-child(3) { left: 30%; animation-delay: 2s; font-size: 1rem; }
+.auth-container .floating-heart:nth-child(4) { left: 40%; animation-delay: 3s; font-size: 1.5rem; }
+.auth-container .floating-heart:nth-child(5) { left: 50%; animation-delay: 4s; font-size: 1.3rem; }
+.auth-container .floating-heart:nth-child(6) { left: 60%; animation-delay: 5s; font-size: 1.6rem; }
+.auth-container .floating-heart:nth-child(7) { left: 70%; animation-delay: 6s; font-size: 1.1rem; }
+.auth-container .floating-heart:nth-child(8) { left: 80%; animation-delay: 7s; font-size: 1.4rem; }
+.auth-container .floating-heart:nth-child(9) { left: 90%; animation-delay: 8s; font-size: 1.7rem; }
+
+/* Auth Section */
+.auth-section {
+  position: relative;
+  z-index: 10;
+}
+
+.auth-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Guest Section */
+.guest-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.divider {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e1e1e1, transparent);
+}
+
+.divider span {
+  background: white;
+  color: #666;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+}
+
+.guest-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.guest-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+.guest-desc {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* 邮箱验证步骤样式 */
+.email-verification-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.verification-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.email-verification-header h3 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.email-verification-header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.verification-step {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.verification-input-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.code-input {
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+}
+
+.send-code-btn {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.send-code-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.send-code-btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.verify-email-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.verify-email-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.verify-email-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+.verification-success {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.success-animation {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.success-icon {
+  font-size: 4rem;
+  animation: bounceIn 0.6s ease-out;
+}
+
+@keyframes bounceIn {
+  0% { 
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% { 
+    transform: scale(1.05);
+  }
+  70% { 
+    transform: scale(0.9);
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.verification-success h4 {
+  color: #4CAF50;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.verification-success p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.send-activation-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #FF6B6B 0%, #ee5a24 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.send-activation-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.activation-section {
+  text-align: center;
+}
+
+.activation-info {
+  margin-bottom: 1.5rem;
+}
+
+.info-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.activation-info h4 {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.activation-info p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.activation-input {
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+}
+
+.resend-activation-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.resend-activation-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 167, 38, 0.4);
+}
+
+.resend-activation-btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.helper-text {
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.email-input {
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.email-input:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 偏好设置范围输入样式 */
+.preference-section {
+  margin-bottom: 1rem;
+}
+
+.preference-section h4 {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.range-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.range-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.range-input label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.range-input input {
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+  min-height: 40px;
+}
+
+.range-input input:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.range-separator {
+  font-weight: 600;
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0 0.25rem;
+  align-self: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+/* 增加文本框组件之间的间距 */
+.step-content .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.step-content .form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Top Priority紧凑横向布局 */
+.priority-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.priority-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+  min-width: 75px;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.priority-checkbox-label:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.priority-checkbox-label input[type="checkbox"] {
+  margin: 0;
+  transform: scale(1.0);
+}
+
+.priority-checkbox-label input[type="checkbox"]:checked + .priority-text {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.priority-checkbox-label:has(input:checked) {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, rgba(102, 126, 234, 0.1) 100%);
+  color: #667eea;
+}
+
+.priority-checkbox-label:has(input:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.priority-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* 激活通知样式 */
+.activation-notice {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+  border: 1px solid #e0e7ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+}
+
+.notice-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.notice-content strong {
+  color: #4f46e5;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.notice-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.notice-content li {
+  padding: 0.5rem 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.notice-content li:last-child {
+  border-bottom: none;
+}
+
+.notice-content li:hover {
+  color: #4f46e5;
+  background-color: rgba(99, 102, 241, 0.05);
+  padding-left: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .activation-notice {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .notice-content li {
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .activation-notice {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  
+  .notice-content strong {
+    font-size: 1rem;
+  }
+  
+  .notice-content li {
+    font-size: 0.85rem;
+  }
+}
+
+/* 激活消息样式 */
+.activation-message {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 12px;
+  border: 1px solid;
+  animation: slideInDown 0.3s ease-out;
+  position: relative;
+}
+
+.activation-message.success {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-color: #10b981;
+  color: #047857;
+}
+
+.activation-message.info {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #3b82f6;
+  color: #1d4ed8;
+}
+
+.activation-message.error {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.message-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.message-content {
+  flex: 1;
+}
+
+.message-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.message-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: currentColor;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.message-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideInDown {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .auth-container {
+    flex-direction: column;
+  }
+  
+  .auth-brand-section {
+    flex: none;
+    padding: 3rem 2rem;
+    min-height: 40vh;
+  }
+  
+  .auth-brand-title {
+    font-size: 3rem;
+  }
+  
+  .auth-brand-features {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .auth-form-section {
+    flex: none;
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    min-height: 100vh;
+  }
+  
+  .auth-brand-section {
+    padding: 2rem 1rem;
+    min-height: 35vh;
+  }
+  
+  .auth-brand-title {
+    font-size: 2.5rem;
+  }
+  
+  .auth-brand-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .auth-brand-features {
+    margin-bottom: 2rem;
+  }
+  
+  .auth-feature-item {
+    padding: 1rem;
+  }
+  
+  .auth-form-section {
+    padding: 2rem 1rem;
+  }
+  
+  .auth-form-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-brand-section {
+    padding: 1.5rem 1rem;
+    min-height: 30vh;
+  }
+  
+  .auth-brand-title {
+    font-size: 2rem;
+  }
+  
+  .auth-brand-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .auth-brand-features {
+    display: none;
+  }
+  
+  .auth-form-section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .auth-form-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .range-input-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .range-separator {
+    align-self: center;
+    margin: 0.25rem 0;
+    font-size: 0.85rem;
+  }
+  
+  .range-input input {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.9rem;
+    min-height: 38px;
+  }
+  
+  .priority-checkbox-group {
+    gap: 0.4rem;
+    justify-content: center;
+  }
+  
+  .priority-checkbox-label {
+    min-width: 70px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .priority-text {
+    font-size: 0.8rem;
+  }
+  
+  .preference-section {
+    margin-bottom: 0.75rem;
+  }
+  
+  .preference-section h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step-content .form-group {
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .range-input input {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.85rem;
+    min-height: 36px;
+  }
+  
+  .priority-checkbox-group {
+    justify-content: center;
+  }
+  
+  .priority-checkbox-label {
+    min-width: 65px;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.75rem;
+  }
+  
+  .preference-section {
+    margin-bottom: 0.6rem;
+  }
+  
+  .range-input label {
+    font-size: 0.8rem;
+  }
+  
+  .step-content .form-group {
+    margin-bottom: 1rem;
+  }
+}
+
+/* 注册准备完毕样式 */
+.registration-ready {
+  margin-top: 2rem;
+}
+
+.ready-info {
+  text-align: center;
+}
+
+.ready-info h4 {
+  color: #4f46e5;
+  font-size: 1.5rem;
+  margin: 1rem 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.ready-info p {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.registration-notice {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #3b82f6;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.registration-notice .notice-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.registration-notice .notice-content strong {
+  color: #1d4ed8;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.registration-notice .notice-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.registration-notice .notice-content li {
+  padding: 0.5rem 0;
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.registration-notice .notice-content li:last-child {
+  border-bottom: none;
+}
+
+.registration-notice .notice-content li:hover {
+  color: #1d4ed8;
+  background-color: rgba(59, 130, 246, 0.05);
+  padding-left: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .registration-notice {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .registration-notice .notice-content li {
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
+  }
+  
+  .ready-info h4 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-notice {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  
+  .registration-notice .notice-content strong {
+    font-size: 1rem;
+  }
+  
+  .registration-notice .notice-content li {
+    font-size: 0.85rem;
+  }
+  
+  .ready-info h4 {
+    font-size: 1.2rem;
+  }
+}
